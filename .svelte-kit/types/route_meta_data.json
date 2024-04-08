@@ -1,0 +1,11 @@
+{
+	"/": [],
+	"/api/posts": [
+		"src/routes/api/posts/+server.ts"
+	],
+	"/home": [],
+	"/register": [],
+	"/register/email": [],
+	"/sign-in": [],
+	"/sign-in/email": []
+}
