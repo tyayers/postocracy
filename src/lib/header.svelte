@@ -20,21 +20,13 @@
   });
 
   function goToPublish() {
-    goto("/user/account/products/new");
-
-    //First, we initialize our event
-    const event = new Event('cancelEvent');
-    // Next, we dispatch the event.
-    document.dispatchEvent(event);
+    goto("/posts/new");
+    document.dispatchEvent(new Event('cancelEvent'));
   }
 
   function signOut() {
     appService.SignOut();
-
-    //First, we initialize our event
-    const event = new Event('cancelEvent');
-    // Next, we dispatch the event.
-    document.dispatchEvent(event);
+    document.dispatchEvent(new Event('cancelEvent'));
 
     goto("/");
   }
@@ -43,20 +35,13 @@
     goto("/apps");
 
     setTimeout(() => {
-      //First, we initialize our event
-      const event = new Event('cancelEvent');
-      // Next, we dispatch the event.
-      document.dispatchEvent(event);
+      document.dispatchEvent(new Event('cancelEvent'));
     }, 50);
   }
 
   function goToAccount() {
     goto("/user/account");
-
-    //First, we initialize our event
-    const event = new Event('cancelEvent');
-    // Next, we dispatch the event.
-    document.dispatchEvent(event);
+    document.dispatchEvent(new Event('cancelEvent'));
   }
 
 </script>

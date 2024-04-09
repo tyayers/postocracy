@@ -26,12 +26,11 @@
  * ```
  */
 declare module '$env/static/private' {
-	export const npm_package_dev: string;
+	export const VITE_APP_NAME: string;
 	export const USER: string;
 	export const npm_config_user_agent: string;
 	export const GIT_ASKPASS: string;
 	export const npm_node_execpath: string;
-	export const npm_package_resolved: string;
 	export const XCURSOR_SIZE: string;
 	export const SHLVL: string;
 	export const BROWSER: string;
@@ -41,19 +40,16 @@ declare module '$env/static/private' {
 	export const HOME: string;
 	export const CHROME_DESKTOP: string;
 	export const OLDPWD: string;
-	export const npm_package_optional: string;
 	export const TERM_PROGRAM_VERSION: string;
 	export const NVM_BIN: string;
 	export const npm_package_json: string;
 	export const NVM_INC: string;
-	export const npm_package_engines_node: string;
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
 	export const PS1: string;
 	export const VSCODE_GIT_ASKPASS_NODE: string;
 	export const MANAGERPID: string;
 	export const npm_config_userconfig: string;
 	export const npm_config_local_prefix: string;
-	export const npm_package_integrity: string;
 	export const SYSTEMD_EXEC_PID: string;
 	export const DBUS_SESSION_BUS_ADDRESS: string;
 	export const npm_config_engine_strict: string;
@@ -99,11 +95,10 @@ declare module '$env/static/private' {
 	export const npm_package_version: string;
 	export const npm_lifecycle_event: string;
 	export const QT_ACCESSIBILITY: string;
-	export const npm_package_dev_optional: string;
+	export const NO_AT_BRIDGE: string;
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 	export const npm_config_globalconfig: string;
 	export const npm_config_init_module: string;
-	export const npm_package_peer: string;
 	export const PWD: string;
 	export const npm_execpath: string;
 	export const NVM_CD_FLAGS: string;
@@ -112,6 +107,7 @@ declare module '$env/static/private' {
 	export const npm_command: string;
 	export const INIT_CWD: string;
 	export const EDITOR: string;
+	export const NODE_ENV: string;
 }
 
 /**
@@ -143,12 +139,11 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
-		npm_package_dev: string;
+		VITE_APP_NAME: string;
 		USER: string;
 		npm_config_user_agent: string;
 		GIT_ASKPASS: string;
 		npm_node_execpath: string;
-		npm_package_resolved: string;
 		XCURSOR_SIZE: string;
 		SHLVL: string;
 		BROWSER: string;
@@ -158,19 +153,16 @@ declare module '$env/dynamic/private' {
 		HOME: string;
 		CHROME_DESKTOP: string;
 		OLDPWD: string;
-		npm_package_optional: string;
 		TERM_PROGRAM_VERSION: string;
 		NVM_BIN: string;
 		npm_package_json: string;
 		NVM_INC: string;
-		npm_package_engines_node: string;
 		VSCODE_GIT_ASKPASS_MAIN: string;
 		PS1: string;
 		VSCODE_GIT_ASKPASS_NODE: string;
 		MANAGERPID: string;
 		npm_config_userconfig: string;
 		npm_config_local_prefix: string;
-		npm_package_integrity: string;
 		SYSTEMD_EXEC_PID: string;
 		DBUS_SESSION_BUS_ADDRESS: string;
 		npm_config_engine_strict: string;
@@ -216,11 +208,10 @@ declare module '$env/dynamic/private' {
 		npm_package_version: string;
 		npm_lifecycle_event: string;
 		QT_ACCESSIBILITY: string;
-		npm_package_dev_optional: string;
+		NO_AT_BRIDGE: string;
 		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 		npm_config_globalconfig: string;
 		npm_config_init_module: string;
-		npm_package_peer: string;
 		PWD: string;
 		npm_execpath: string;
 		NVM_CD_FLAGS: string;
@@ -229,6 +220,7 @@ declare module '$env/dynamic/private' {
 		npm_command: string;
 		INIT_CWD: string;
 		EDITOR: string;
+		NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;
 	}

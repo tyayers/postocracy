@@ -1,15 +1,22 @@
 <script lang="ts">
-  import type { AppUser } from '$lib/interfaces';
+  import type { AppUser, PostIndex } from '$lib/interfaces';
   import { onMount } from 'svelte';
   import { appService } from '$lib/app-service';
   import { goto } from '$app/navigation';
 
   let currentUser: AppUser | undefined = appService.currentUser;
+  let posts: PostIndex | undefined = appService.posts;
 
 	onMount(() => {
     document.addEventListener("userUpdated", () => {
       if (appService.currentUser) {
         currentUser = appService.currentUser;
+      }
+    });
+
+    document.addEventListener("postsUpdated", () => {
+      if (appService.posts) {
+        posts = appService.posts;
       }
     });
 
@@ -26,5 +33,13 @@
 </script>
 
 <div>
-  hello world!
+  {#if posts}
+    {#each posts.index as post}
+      <div>
+        {post.title}
+      </div>
+    {/each}
+  {:else}
+    no posts!
+  {/if}
 </div>

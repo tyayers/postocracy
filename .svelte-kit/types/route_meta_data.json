@@ -4,6 +4,7 @@
 		"src/routes/api/posts/+server.ts"
 	],
 	"/home": [],
+	"/posts/new": [],
 	"/register": [],
 	"/register/email": [],
 	"/sign-in": [],

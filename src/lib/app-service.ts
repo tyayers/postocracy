@@ -14,7 +14,7 @@ import {
 import type { User } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 
-import { AppUser } from "./interfaces";
+import { AppUser, Post, PostIndex } from "./interfaces";
 
 export class AppService {
   googleProvider = new GoogleAuthProvider();
@@ -31,6 +31,8 @@ export class AppService {
   currentUserLoaded: boolean = false;
   firebaseUser: User | undefined = undefined;
   reloadFlag: boolean = false;
+  posts: PostIndex | undefined = undefined;
+  pageLimit: number = 5;
 
   constructor() {
     if (browser) {
@@ -41,10 +43,7 @@ export class AppService {
         this.currentUserLoaded = true;
         if (!u) {
           this.currentUser = undefined;
-          //First, we initialize our event
-          const event = new Event('userUpdated');
-          // Next, we dispatch the event.
-          document.dispatchEvent(event);
+          document.dispatchEvent(new Event('userUpdated'));
           // Goto signed-out landing page
           goto("/");
         } else {
@@ -52,6 +51,7 @@ export class AppService {
           this.currentUser = new AppUser();
 
           if (u?.email) this.currentUser.email = u.email.replaceAll("#", "");
+          if (u?.uid) this.currentUser.id = u.uid;
           if (u?.photoURL) 
             this.currentUser.photoUrl = u.photoURL;
           else
@@ -71,8 +71,14 @@ export class AppService {
             goto("/home");
           }
           else {
-            const event = new Event('userUpdated');
-            document.dispatchEvent(event);
+            document.dispatchEvent(new Event('userUpdated'));
+
+            fetch("api/posts").then((response) => {
+              return response.json();
+            }).then((index: PostIndex) => {
+              this.posts = index;
+              document.dispatchEvent(new Event('postsUpdated'));
+            });
           }
         }
       });
@@ -160,6 +166,20 @@ export class AppService {
         console.error("No dialog registered handler!");
       }
     });
+  }
+
+  CreatePost(newPost: Post) {
+    if (this.posts && this.posts.index.length >= this.pageLimit) {
+      // TODO - Roll over to new index
+      
+    }
+    else if (this.posts) {
+      newPost.content = "";
+      this.posts.index.push(newPost);
+      document.dispatchEvent(new Event('postsUpdated'));
+
+      // TODO - write back to server at some point
+    }
   }
 }
 

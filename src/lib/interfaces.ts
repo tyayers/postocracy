@@ -1,4 +1,5 @@
 export class AppUser {
+  id = "";
   email = "";
   userName = "";
   photoUrl = "";
@@ -17,10 +18,40 @@ export interface Error {
   status: string;
 }
 
-export interface Post {
-  author: string;
+export class Post {
+  id: string;
+  authorId: string;
+  authorDisplayName: string = "";
+  authorPhotoUrl: string = "";
   title: string;
   createdAt: string;
-  tags: string[];
-  content: string;
+  edited: boolean = false;
+  tags: string[] = [];
+  content: string = "";
+  fileCount: number = 0;
+  likeCount: number = 0;
+  commentCount: number = 0;
+
+  constructor(id: string, authorId: string, title: string, createdAt: string) {
+    this.id = id;
+    this.authorId = authorId;
+    this.title = title;
+    this.createdAt = createdAt;
+  }
+}
+
+export class PostIndex {
+  pageCount: number = 0;
+  index: Post[] = [];
+}
+
+export class NewPost {
+  index?: PostIndex;
+  post?: Post;
+}
+
+export interface DataProvider {
+  createDir(name: string): void;
+  writeFile(name: string, content: Buffer): void;
+  getFile(name: string): Buffer | undefined;
 }
