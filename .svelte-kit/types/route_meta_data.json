@@ -1,7 +1,13 @@
 {
 	"/": [],
+	"/api/index": [
+		"src/routes/api/index/+server.ts"
+	],
 	"/api/posts": [
 		"src/routes/api/posts/+server.ts"
+	],
+	"/api/posts/[id]/updateIndexId": [
+		"src/routes/api/posts/[id]/updateIndexId/+server.ts"
 	],
 	"/home": [],
 	"/posts/new": [],

@@ -20,6 +20,7 @@ export interface Error {
 
 export class Post {
   id: string;
+  indexId: string = "";
   authorId: string;
   authorDisplayName: string = "";
   authorPhotoUrl: string = "";
@@ -41,8 +42,12 @@ export class Post {
 }
 
 export class PostIndex {
-  pageCount: number = 0;
+  id: string;
   index: Post[] = [];
+
+  constructor(id: string) {
+    this.id = id;
+  }
 }
 
 export class NewPost {

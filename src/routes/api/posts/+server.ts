@@ -5,21 +5,23 @@ import { PostIndex, Post } from '$lib/interfaces';
 import { DataProviderLocal } from '$lib/data-provider-local';
 
 let provider: DataProvider = new DataProviderLocal();
-let pageSize: number = 500;
+let postsBuffer = provider.getFile("index.json");
 
 export const GET: RequestHandler = async ({ url }) => {
 
-  const start = url.searchParams.get('start') ?? "0";
-  const length = url.searchParams.get('length') ?? "20";
+  // const start = url.searchParams.get('start') ?? "0";
+  // const length = url.searchParams.get('length') ?? "20";
 
-  let index: PostIndex;
-  let indexBuffer = provider.getFile("index.json");
-  if (!indexBuffer) 
-    index = new PostIndex();
-  else
-    index = JSON.parse(indexBuffer.toString());
+  // let index: PostIndex;
+  // let indexBuffer = provider.getFile("index.json");
+  // if (!indexBuffer) 
+  //   index = new PostIndex();
+  // else
+  //   index = JSON.parse(indexBuffer.toString());
 
-	return json(index);
+	return json({
+    status: "Ok"
+  });
 };
 
 export const POST: RequestHandler = async ({ url, request }) => {
@@ -37,7 +39,7 @@ export const POST: RequestHandler = async ({ url, request }) => {
   const monthString: string = month < 10 ? "0" + month.toString() : month.toString();
   const dayString: string = day < 10 ? "0" + day.toString() : day.toString();
   const createdAt: string = currentDate.toISOString();
-  const generateRandomString = (length=6)=>Math.random().toString(20).substring(0, length);
+  const generateRandomString = (length=6)=>Math.random().toString(20).substring(2, length + 2);
   const postId: string = yearString + monthString + dayString + "_" + generateRandomString(8);
 
   if (!authorId || !title || !content) {
@@ -45,9 +47,10 @@ export const POST: RequestHandler = async ({ url, request }) => {
   }
   else {
     let newPost: Post = new Post(postId, authorId, title, createdAt);
+
     newPost.content = content;
     provider.createDir(newPost.id);
-    provider.writeFile(newPost.id + "/post.json", Buffer.from(JSON.stringify(newPost), 'utf8'));
+    provider.writeFile(newPost.id + "/content.json", Buffer.from(JSON.stringify(newPost), 'utf8'));
 
     return json(newPost);
   }

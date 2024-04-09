@@ -32,7 +32,6 @@ export class AppService {
   firebaseUser: User | undefined = undefined;
   reloadFlag: boolean = false;
   posts: PostIndex | undefined = undefined;
-  pageLimit: number = 5;
 
   constructor() {
     if (browser) {
@@ -73,7 +72,7 @@ export class AppService {
           else {
             document.dispatchEvent(new Event('userUpdated'));
 
-            fetch("api/posts").then((response) => {
+            fetch("api/index").then((response) => {
               return response.json();
             }).then((index: PostIndex) => {
               this.posts = index;
@@ -169,17 +168,15 @@ export class AppService {
   }
 
   CreatePost(newPost: Post) {
-    if (this.posts && this.posts.index.length >= this.pageLimit) {
-      // TODO - Roll over to new index
-      
-    }
-    else if (this.posts) {
-      newPost.content = "";
-      this.posts.index.push(newPost);
+    fetch("/api/index", {
+      method: "POST",
+      body: JSON.stringify(newPost)
+    }).then((result) => {
+      return result.json();
+    }).then((newIndex: PostIndex) => {
+      this.posts = newIndex;
       document.dispatchEvent(new Event('postsUpdated'));
-
-      // TODO - write back to server at some point
-    }
+    })
   }
 }
 

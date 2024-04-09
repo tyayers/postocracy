@@ -19,7 +19,7 @@ export class DataProviderLocal implements DataProvider {
   }
 
   writeFile(name: string, content: Buffer): void {
-    fs.writeFileSync(this.rootDir + name, content);
+    fs.writeFile(this.rootDir + name, content, () => {});
     return;
     
     // return new Promise<void>((resolve, reject) => {
@@ -31,7 +31,7 @@ export class DataProviderLocal implements DataProvider {
   }
   
   getFile(name: string): Buffer | undefined {
-    if (!fs.existsSync(name)) {
+    if (!fs.existsSync(this.rootDir + name)) {
       console.error(`DataProviderLocal.getFile - file ${name} does not exist!`);
       return undefined;
     }
