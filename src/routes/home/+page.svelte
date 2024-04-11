@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
   import { appService } from '$lib/app-service';
   import { goto } from '$app/navigation';
+  import PostCard from '$lib/component-post-card.svelte';
 
   let currentUser: AppUser | undefined = appService.currentUser;
   let posts: PostIndex | undefined = appService.posts;
@@ -32,14 +33,21 @@
   });
 </script>
 
-<div>
-  {#if posts}
-    {#each posts.index as post}
-      <div>
-        {post.title}
-      </div>
-    {/each}
-  {:else}
-    no posts!
-  {/if}
+<div class="central_two_panel_page">
+  <div class="central_two_panel_content">
+    <div class="central_two_panel_left">
+      {#if posts}
+        <div class="central_two_panel_left_inner">
+          {#each posts.index as post}
+            <PostCard {post} />
+          {/each}
+        </div>
+      {:else}
+        no posts!
+      {/if}
+    </div>
+    <div class="central_two_panel_right">
+      right-widget
+    </div>
+  </div>
 </div>

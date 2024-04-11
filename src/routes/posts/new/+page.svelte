@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { appService } from '$lib/app-service';
-  import Editor, { getData, setData } from '$lib/editor.svelte';
+  import Editor, { getData, setData } from '$lib/component-editor.svelte';
 	import type { AppUser, Post } from '$lib/interfaces';
 	import { onMount } from 'svelte';
 
@@ -41,7 +41,7 @@
     if (currentUser) {
       formData.set("authorId", currentUser.id);
       formData.set("authorDisplayName", currentUser.userName);
-      formData.set("authorProfilePic", currentUser.photoUrl);
+      formData.set("authorPhotoUrl", currentUser.photoUrl);
     }
 
     fetch("/api/posts", {

@@ -32,55 +32,77 @@ export class AppService {
   firebaseUser: User | undefined = undefined;
   reloadFlag: boolean = false;
   posts: PostIndex | undefined = undefined;
+  testMode: boolean = true;
 
   constructor() {
     if (browser) {
-      this.auth.onAuthStateChanged((u: User | null) => {
-        // if u is undefined, means we don't know user state
-        // if u is null, means user is signed out
-        // if u is an object, means user is signed in
-        this.currentUserLoaded = true;
-        if (!u) {
-          this.currentUser = undefined;
-          document.dispatchEvent(new Event('userUpdated'));
-          // Goto signed-out landing page
-          goto("/");
-        } else {
-          this.firebaseUser = u;
-          this.currentUser = new AppUser();
-
-          if (u?.email) this.currentUser.email = u.email.replaceAll("#", "");
-          if (u?.uid) this.currentUser.id = u.uid;
-          if (u?.photoURL) 
-            this.currentUser.photoUrl = u.photoURL;
-          else
-            this.currentUser.photoUrl = "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
-
-          if (u?.displayName) {
-            this.currentUser.userName = u.displayName;
-          }
-          else {
-            this.currentUser.userName = "New User";
-          }
-
-          if (u.providerData && u.providerData.length > 0)
-            this.currentUser.providerId = u.providerData[0].providerId;
-
-          if (window.location.pathname.endsWith("/")) {
-            goto("/home");
-          }
-          else {
+      if (!this.testMode) {
+        this.auth.onAuthStateChanged((u: User | null) => {
+          // if u is undefined, means we don't know user state
+          // if u is null, means user is signed out
+          // if u is an object, means user is signed in
+          this.currentUserLoaded = true;
+          if (!u) {
+            this.currentUser = undefined;
             document.dispatchEvent(new Event('userUpdated'));
+            // Goto signed-out landing page
+            goto("/");
+          } else {
+            this.firebaseUser = u;
+            this.currentUser = new AppUser("", "", "", "", "");
 
-            fetch("api/index").then((response) => {
-              return response.json();
-            }).then((index: PostIndex) => {
-              this.posts = index;
-              document.dispatchEvent(new Event('postsUpdated'));
-            });
+            if (u?.email) this.currentUser.email = u.email.replaceAll("#", "");
+            if (u?.uid) this.currentUser.id = u.uid;
+            if (u?.photoURL) 
+              this.currentUser.photoUrl = u.photoURL;
+            else
+              this.currentUser.photoUrl = "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y";
+
+            if (u?.displayName) {
+              this.currentUser.userName = u.displayName;
+              this.currentUser.handle = u.displayName;
+            }
+            else {
+              this.currentUser.userName = "New User";
+              this.currentUser.handle = "newUser";
+            }
+
+            if (u.providerData && u.providerData.length > 0)
+              this.currentUser.providerId = u.providerData[0].providerId;
+
+            if (window.location.pathname.endsWith("/")) {
+              goto("/home");
+            }
+            else {
+              document.dispatchEvent(new Event('userUpdated'));
+
+              fetch("api/index").then((response) => {
+                return response.json();
+              }).then((index: PostIndex) => {
+                this.posts = index;
+                document.dispatchEvent(new Event('postsUpdated'));
+              });
+            }
           }
+        });
+      }
+      else {
+        this.currentUser = new AppUser("1234", "test@example.com", "Test User", "testUser", "/blue-icon.svg");
+
+        if (window.location.pathname.endsWith("/")) {
+          goto("/home");
         }
-      });
+        else {
+          document.dispatchEvent(new Event('userUpdated'));
+
+          fetch("api/index").then((response) => {
+            return response.json();
+          }).then((index: PostIndex) => {
+            this.posts = index;
+            document.dispatchEvent(new Event('postsUpdated'));
+          });
+        }
+      }
     }
   }
 

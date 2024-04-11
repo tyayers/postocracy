@@ -529,3 +529,36 @@ button {
   margin-left: 24px;
   margin-top: 24px;
 }
+
+/* Central two panel content */
+
+.central_two_panel_page {
+  max-width: 1336px;
+  text-align: left;
+  margin: auto;
+}
+
+.central_two_panel_content {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
+.central_two_panel_left {
+  width: 100%;
+  flex: 1 1 auto;
+  justify-content: center;
+  display: inline-flex;
+}
+
+.central_two_panel_left_inner {
+  max-width: 728px;
+  width: 100%;
+  padding-bottom: 54px;
+}
+
+.central_two_panel_right {
+  border-left: 1px solid rgba(242, 242, 242, 1);
+  padding-left: 32px;
+  min-width: 420px;
+}

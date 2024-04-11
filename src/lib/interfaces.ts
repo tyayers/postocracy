@@ -1,10 +1,21 @@
 export class AppUser {
-  id = "";
-  email = "";
-  userName = "";
-  photoUrl = "";
+  id;
+  email;
+  userName;
+  handle;
+  photoUrl;
   providerId = "";
   status = "";
+  postCount = 0;
+  followerCount = 0;
+
+  constructor(id: string, email: string, userName: string, handle: string, photoUrl: string) {
+    this.id = id;
+    this.email = email;
+    this.userName = userName;
+    this.handle = handle;
+    this.photoUrl = photoUrl;
+  }
 }
 
 export interface KeyValue {
@@ -25,8 +36,10 @@ export class Post {
   authorDisplayName: string = "";
   authorPhotoUrl: string = "";
   title: string;
+  summary: string = "";
   createdAt: string;
   edited: boolean = false;
+  image: string = "";
   tags: string[] = [];
   content: string = "";
   fileCount: number = 0;

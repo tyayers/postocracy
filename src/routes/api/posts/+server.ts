@@ -28,9 +28,10 @@ export const POST: RequestHandler = async ({ url, request }) => {
 
   const data = await request.formData();
   const authorId = data.get("authorId")?.toString();
-  const authorDisplayName = data.get("authorDisplayName");
-  const authorPhotoUrl = data.get("authorPhotoUrl");
+  const authorDisplayName: string | undefined = data.get("authorDisplayName")?.toString();
+  const authorPhotoUrl: string | undefined = data.get("authorPhotoUrl")?.toString();
   const title = data.get("title")?.toString();
+  const summary = data.get("summary")?.toString();
   const content = data.get("content")?.toString();
   const currentDate = new Date();
   const month = currentDate.getMonth() + 1;
@@ -47,6 +48,9 @@ export const POST: RequestHandler = async ({ url, request }) => {
   }
   else {
     let newPost: Post = new Post(postId, authorId, title, createdAt);
+    if (authorDisplayName) newPost.authorDisplayName = authorDisplayName;
+    if (authorPhotoUrl) newPost.authorPhotoUrl = authorPhotoUrl;
+    if (summary) newPost.summary = summary;
 
     newPost.content = content;
     provider.createDir(newPost.id);

@@ -6,11 +6,17 @@
 	"/api/posts": [
 		"src/routes/api/posts/+server.ts"
 	],
+	"/api/posts/[id]": [
+		"src/routes/api/posts/[id]/+server.ts"
+	],
 	"/api/posts/[id]/updateIndexId": [
 		"src/routes/api/posts/[id]/updateIndexId/+server.ts"
 	],
 	"/home": [],
 	"/posts/new": [],
+	"/posts/[id]": [
+		"src/routes/posts/[id]/+page.ts"
+	],
 	"/register": [],
 	"/register/email": [],
 	"/sign-in": [],
