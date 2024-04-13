@@ -76,7 +76,7 @@ export class AppService {
             else {
               document.dispatchEvent(new Event('userUpdated'));
 
-              fetch("api/index").then((response) => {
+              fetch("/api/index").then((response) => {
                 return response.json();
               }).then((index: PostIndex) => {
                 this.posts = index;
@@ -95,7 +95,7 @@ export class AppService {
         else {
           document.dispatchEvent(new Event('userUpdated'));
 
-          fetch("api/index").then((response) => {
+          fetch("/api/index").then((response) => {
             return response.json();
           }).then((index: PostIndex) => {
             this.posts = index;

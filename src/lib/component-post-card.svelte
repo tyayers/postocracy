@@ -26,12 +26,23 @@
       <div class="post_card_content">
         <div class="post_card_content_body">
           <span
-            class:post_card_content_left={post.image}
-            class:post_card_content_left_full={!post.image}
+            class:post_card_content_left={post.imageUrl}
+            class:post_card_content_left_full={!post.imageUrl}
           >
             <h2 class="title">{post.title}</h2>
             {@html post.summary}
           </span>
+
+          {#if post.imageUrl}
+            <span class="post_card_content_right">
+              <img
+                class="content_right_image"
+                src={post.imageUrl}
+                alt="Post preview"
+              />
+            </span>
+          {/if}
+
         </div>
       </div>
     </div>
@@ -84,5 +95,12 @@
 
   .post_card_content_left_full {
     width: 100%;
-  }  
+  }
+
+  .post_card_content_right {
+    width: 25%;
+    margin-left: 10px;
+    margin-top: auto;
+    height: 100%;
+  }
 </style>

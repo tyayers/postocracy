@@ -24,7 +24,7 @@ export let data;
       {/if}
     </div>
     <div class="central_two_panel_right">
-      right-widget
+      right-widget2
     </div>
   </div>
 </div>

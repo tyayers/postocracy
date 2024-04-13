@@ -33,6 +33,7 @@ export const POST: RequestHandler = async ({ url, request }) => {
   const title = data.get("title")?.toString();
   const summary = data.get("summary")?.toString();
   const content = data.get("content")?.toString();
+  const imageUrl = data.get("imageUrl")?.toString();
   const currentDate = new Date();
   const month = currentDate.getMonth() + 1;
   const day = currentDate.getDate();
@@ -43,6 +44,8 @@ export const POST: RequestHandler = async ({ url, request }) => {
   const generateRandomString = (length=6)=>Math.random().toString(20).substring(2, length + 2);
   const postId: string = yearString + monthString + dayString + "_" + generateRandomString(8);
 
+  console.log("got this imageUrl: " + imageUrl);
+
   if (!authorId || !title || !content) {
     error(400, 'Invalid post data sent.');
   }
@@ -51,6 +54,9 @@ export const POST: RequestHandler = async ({ url, request }) => {
     if (authorDisplayName) newPost.authorDisplayName = authorDisplayName;
     if (authorPhotoUrl) newPost.authorPhotoUrl = authorPhotoUrl;
     if (summary) newPost.summary = summary;
+    if (imageUrl) newPost.imageUrl = imageUrl;
+
+    console.log(newPost);
 
     newPost.content = content;
     provider.createDir(newPost.id);

@@ -44,6 +44,15 @@
       formData.set("authorPhotoUrl", currentUser.photoUrl);
     }
 
+    // Get the first image, if there is one
+    var el = document.createElement( 'tempElement' );
+    el.innerHTML = content;
+    let images = el.getElementsByTagName( 'img' );
+    if (images && images.length > 0) {
+      // Set first img as header image
+      formData.set("imageUrl", images[0].src);
+    }
+
     fetch("/api/posts", {
       method: "POST",
       body: formData

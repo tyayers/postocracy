@@ -34,6 +34,7 @@ declare module '$env/static/private' {
 	export const XCURSOR_SIZE: string;
 	export const SHLVL: string;
 	export const BROWSER: string;
+	export const CONFLUENT_HOME: string;
 	export const npm_config_noproxy: string;
 	export const XCURSOR_SIZE_LOW_DENSITY: string;
 	export const SOMMELIER_VERSION: string;
@@ -98,6 +99,7 @@ declare module '$env/static/private' {
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 	export const npm_config_globalconfig: string;
 	export const npm_config_init_module: string;
+	export const JAVA_HOME: string;
 	export const PWD: string;
 	export const npm_execpath: string;
 	export const NVM_CD_FLAGS: string;
@@ -146,6 +148,7 @@ declare module '$env/dynamic/private' {
 		XCURSOR_SIZE: string;
 		SHLVL: string;
 		BROWSER: string;
+		CONFLUENT_HOME: string;
 		npm_config_noproxy: string;
 		XCURSOR_SIZE_LOW_DENSITY: string;
 		SOMMELIER_VERSION: string;
@@ -210,6 +213,7 @@ declare module '$env/dynamic/private' {
 		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 		npm_config_globalconfig: string;
 		npm_config_init_module: string;
+		JAVA_HOME: string;
 		PWD: string;
 		npm_execpath: string;
 		NVM_CD_FLAGS: string;

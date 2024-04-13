@@ -39,7 +39,7 @@ export class Post {
   summary: string = "";
   createdAt: string;
   edited: boolean = false;
-  image: string = "";
+  imageUrl: string = "";
   tags: string[] = [];
   content: string = "";
   fileCount: number = 0;
