@@ -35,4 +35,9 @@ export let data;
     flex: 1 1 auto;
     justify-content: center;
   }
+
+  img {
+    max-width: 100%;
+    border-radius: 25px;
+  }
 </style>

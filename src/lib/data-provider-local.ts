@@ -14,7 +14,8 @@ export class DataProviderLocal implements DataProvider {
   }
 
   createDir(name: string): void {
-    fs.mkdirSync(this.rootDir + name);
+    if (!fs.existsSync(this.rootDir + name))
+      fs.mkdirSync(this.rootDir + name);
     return;
   }
 

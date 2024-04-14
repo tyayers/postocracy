@@ -87,20 +87,20 @@ export class AppService {
         });
       }
       else {
+        console.log("loading user...");
         this.currentUser = new AppUser("1234", "test@example.com", "Test User", "testUser", "/blue-icon.svg");
 
-        if (window.location.pathname.endsWith("/")) {
-          goto("/home");
-        }
-        else {
-          document.dispatchEvent(new Event('userUpdated'));
+        fetch("/api/index").then((response) => {
+          return response.json();
+        }).then((index: PostIndex) => {
+          this.posts = index;
+          document.dispatchEvent(new Event('postsUpdated'));
+        });
 
-          fetch("/api/index").then((response) => {
-            return response.json();
-          }).then((index: PostIndex) => {
-            this.posts = index;
-            document.dispatchEvent(new Event('postsUpdated'));
-          });
+        document.dispatchEvent(new Event('userUpdated'));
+
+        if (window.location.pathname === "/") {
+          goto("/home");
         }
       }
     }

@@ -6,7 +6,7 @@
 </script>
 
 <div class="post_card_div">
-  <a href={"/posts/" + post.id}>
+  <a class="post_card_link" href={"/posts/" + post.id}>
     <div class="post_card_inner">
       <div class="post_card_user">
         <div class="post_card_profile">
@@ -36,7 +36,7 @@
           {#if post.imageUrl}
             <span class="post_card_content_right">
               <img
-                class="content_right_image"
+                class="post_card_content_right_image"
                 src={post.imageUrl}
                 alt="Post preview"
               />
@@ -58,7 +58,12 @@
     padding-top: 30px;
   }
 
+  .post_card_link {
+    width: 100%;
+  }
+
   .post_card_inner {
+    /* width: 100%; */
     margin: 0px 24px;
     max-width: 680px;
     height: 100%;
@@ -102,5 +107,10 @@
     margin-left: 10px;
     margin-top: auto;
     height: 100%;
+  }
+
+  .post_card_content_right_image {
+    border-radius: 10px;
+    width: 100%;
   }
 </style>

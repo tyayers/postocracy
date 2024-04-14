@@ -8,6 +8,11 @@ a {
   color: #333;
 }
 
+img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
 :root {
   /* --primary-color: #6750a4; */
   --primary-color: #3367d6;
@@ -552,13 +557,13 @@ button {
 }
 
 .central_two_panel_left_inner {
+  width: 70%;
   max-width: 728px;
-  width: 100%;
   padding-bottom: 54px;
 }
 
 .central_two_panel_right {
+  width: 30%;
   border-left: 1px solid rgba(242, 242, 242, 1);
   padding-left: 32px;
-  min-width: 420px;
 }

@@ -8,8 +8,14 @@
   let currentUser: AppUser | undefined = appService.currentUser;
   let posts: PostIndex | undefined = appService.posts;
 
+  console.log("Home loaded, posts:")
+  console.log(posts);
+
 	onMount(() => {
     document.addEventListener("userUpdated", () => {
+      console.log("userUpdated");
+      console.log(appService.posts);
+
       if (appService.currentUser) {
         currentUser = appService.currentUser;
       }
@@ -19,6 +25,8 @@
       if (appService.posts) {
         posts = appService.posts;
       }
+      console.log("postsUpdated");
+      console.log(posts);
     });
 
     if (appService.reloadFlag) {
@@ -28,6 +36,7 @@
 
     if (!appService.currentUser && appService.currentUserLoaded) {
       // This means no user is signed in, go to landing page
+      console.log("No user, going to landing page...");
       goto("/");
     }
   });

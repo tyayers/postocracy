@@ -181,7 +181,7 @@
             <input
               type="text"
               id="linkInput"
-              value={window.location.href}
+              value={"#"}
               style="display: none"
             />
           </a>
