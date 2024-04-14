@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { appService } from '$lib/app-service';
+  import {generatePostId} from '$lib/utils';
   import Editor, { getData, setData } from '$lib/component-editor.svelte';
 	import type { AppUser, Post } from '$lib/interfaces';
 	import { onMount } from 'svelte';
 
   let currentUser: AppUser | undefined = appService.currentUser;
+  let postId: string = generatePostId();
 
 	onMount(() => {
     document.addEventListener("userUpdated", () => {
@@ -36,6 +38,7 @@
       summaryText += " " + textPieces[i];
     }
     if (textPieces.length > wordLimit) summaryText += "...";
+    formData.set("postId", postId);
     formData.set("content", content);
     formData.set("summary", summaryText);
     if (currentUser) {
@@ -81,7 +84,7 @@
     <button class="rounded_button_outlined" style="position: relative; top: -7px;" on:click={save}>Save</button>
 
     <div>
-      <Editor {saveDraft}></Editor>
+      <Editor {saveDraft} imageUploadPath={"/api/posts/" + postId + "/images"}></Editor>
     </div>
   </form>
 </div>

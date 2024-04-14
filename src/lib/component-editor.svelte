@@ -3,6 +3,8 @@
   let initialData;
   let loaded: boolean = false;
 
+  export let imageUploadPath: string = "";
+
   export function getData(): string {
     return editor.getData();
   }
@@ -33,8 +35,16 @@
   export let saveDraft: () => void;
 
   function initCkeditor() {
+    // If not using image upload, then remove simpleUpload block in the initialization...
     BalloonBlockEditor.create(document.querySelector("#content"), {
         placeholder: "Add your content here...",
+        simpleUpload: {
+          uploadUrl: imageUploadPath,
+          withCredentials: true,
+          headers: {
+            Authorization: "Bearer " + "xyz",
+          },
+        },        
         autosave: {
           save(editor) {
             //return saveData( editor.getData() );

@@ -3,6 +3,7 @@ import type { RequestHandler } from './$types';
 import type { DataProvider, NewPost } from '$lib/interfaces';
 import { PostIndex, Post } from '$lib/interfaces';
 import { DataProviderLocal } from '$lib/data-provider-local';
+import { generatePostId } from '$lib/utils';
 
 let provider: DataProvider = new DataProviderLocal();
 let postsBuffer = provider.getFile("index.json");
@@ -27,6 +28,7 @@ export const GET: RequestHandler = async ({ url }) => {
 export const POST: RequestHandler = async ({ url, request }) => {
 
   const data = await request.formData();
+  let postId = data.get("postId")?.toString();
   const authorId = data.get("authorId")?.toString();
   const authorDisplayName: string | undefined = data.get("authorDisplayName")?.toString();
   const authorPhotoUrl: string | undefined = data.get("authorPhotoUrl")?.toString();
@@ -35,16 +37,10 @@ export const POST: RequestHandler = async ({ url, request }) => {
   const content = data.get("content")?.toString();
   const imageUrl = data.get("imageUrl")?.toString();
   const currentDate = new Date();
-  const month = currentDate.getMonth() + 1;
-  const day = currentDate.getDate();
-  const yearString = currentDate.getFullYear().toString();
-  const monthString: string = month < 10 ? "0" + month.toString() : month.toString();
-  const dayString: string = day < 10 ? "0" + day.toString() : day.toString();
   const createdAt: string = currentDate.toISOString();
-  const generateRandomString = (length=6)=>Math.random().toString(20).substring(2, length + 2);
-  const postId: string = yearString + monthString + dayString + "_" + generateRandomString(8);
 
-  console.log("got this imageUrl: " + imageUrl);
+  if (!postId)
+    postId = generatePostId();
 
   if (!authorId || !title || !content) {
     error(400, 'Invalid post data sent.');
@@ -55,8 +51,6 @@ export const POST: RequestHandler = async ({ url, request }) => {
     if (authorPhotoUrl) newPost.authorPhotoUrl = authorPhotoUrl;
     if (summary) newPost.summary = summary;
     if (imageUrl) newPost.imageUrl = imageUrl;
-
-    console.log(newPost);
 
     newPost.content = content;
     provider.createDir(newPost.id);

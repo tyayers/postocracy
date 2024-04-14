@@ -9,8 +9,14 @@
 	"/api/posts/[id]": [
 		"src/routes/api/posts/[id]/+server.ts"
 	],
+	"/api/posts/[id]/images": [
+		"src/routes/api/posts/[id]/images/+server.ts"
+	],
 	"/api/posts/[id]/updateIndexId": [
 		"src/routes/api/posts/[id]/updateIndexId/+server.ts"
+	],
+	"/api/posts/[id]/[file]": [
+		"src/routes/api/posts/[id]/[file]/+server.ts"
 	],
 	"/home": [],
 	"/posts/new": [],
