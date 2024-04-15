@@ -15,13 +15,16 @@
 	"/api/posts/[id]/updateIndexId": [
 		"src/routes/api/posts/[id]/updateIndexId/+server.ts"
 	],
-	"/api/posts/[id]/[file]": [
-		"src/routes/api/posts/[id]/[file]/+server.ts"
+	"/api/posts/[id]/[image]": [
+		"src/routes/api/posts/[id]/[image]/+server.ts"
 	],
 	"/home": [],
 	"/posts/new": [],
 	"/posts/[id]": [
 		"src/routes/posts/[id]/+page.ts"
+	],
+	"/posts/[id]/edit": [
+		"src/routes/posts/[id]/edit/+page.ts"
 	],
 	"/register": [],
 	"/register/email": [],

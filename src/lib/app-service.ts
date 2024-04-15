@@ -188,18 +188,6 @@ export class AppService {
       }
     });
   }
-
-  CreatePost(newPost: Post) {
-    fetch("/api/index", {
-      method: "POST",
-      body: JSON.stringify(newPost)
-    }).then((result) => {
-      return result.json();
-    }).then((newIndex: PostIndex) => {
-      this.posts = newIndex;
-      document.dispatchEvent(new Event('postsUpdated'));
-    })
-  }
 }
 
 export let appService: AppService = new AppService();

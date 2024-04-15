@@ -8,9 +8,6 @@
   let currentUser: AppUser | undefined = appService.currentUser;
   let posts: PostIndex | undefined = appService.posts;
 
-  console.log("Home loaded, posts:")
-  console.log(posts);
-
 	onMount(() => {
     document.addEventListener("userUpdated", () => {
       console.log("userUpdated");

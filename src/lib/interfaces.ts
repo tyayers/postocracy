@@ -56,6 +56,9 @@ export class Post {
 
 export class PostIndex {
   id: string;
+  previousId: string = "";
+  nextId: string = "";
+  count: number = 0;
   index: Post[] = [];
 
   constructor(id: string) {

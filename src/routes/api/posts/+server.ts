@@ -3,7 +3,7 @@ import type { RequestHandler } from './$types';
 import type { DataProvider, NewPost } from '$lib/interfaces';
 import { PostIndex, Post } from '$lib/interfaces';
 import { DataProviderLocal } from '$lib/data-provider-local';
-import { generatePostId } from '$lib/utils';
+import { convertPostFormToObject, generateId } from '$lib/utils';
 
 let provider: DataProvider = new DataProviderLocal();
 let postsBuffer = provider.getFile("index.json");
@@ -28,40 +28,19 @@ export const GET: RequestHandler = async ({ url }) => {
 export const POST: RequestHandler = async ({ url, request }) => {
 
   const data = await request.formData();
-  let postId = data.get("postId")?.toString();
-  const authorId = data.get("authorId")?.toString();
-  const authorDisplayName: string | undefined = data.get("authorDisplayName")?.toString();
-  const authorPhotoUrl: string | undefined = data.get("authorPhotoUrl")?.toString();
-  const title = data.get("title")?.toString();
-  const summary = data.get("summary")?.toString();
-  const content = data.get("content")?.toString();
-  const imageUrl = data.get("imageUrl")?.toString();
-  const currentDate = new Date();
-  const createdAt: string = currentDate.toISOString();
+  let postData: Post | undefined = await convertPostFormToObject(data);
 
-  if (!postId)
-    postId = generatePostId();
-
-  if (!authorId || !title || !content) {
+  if (!postData) {
     error(400, 'Invalid post data sent.');
   }
   else {
-    let newPost: Post = new Post(postId, authorId, title, createdAt);
-    if (authorDisplayName) newPost.authorDisplayName = authorDisplayName;
-    if (authorPhotoUrl) newPost.authorPhotoUrl = authorPhotoUrl;
-    if (summary) newPost.summary = summary;
-    if (imageUrl) newPost.imageUrl = imageUrl;
+    provider.createDir(postData.id);
+    provider.writeFile(postData.id + "/content.json", Buffer.from(JSON.stringify(postData), 'utf8'));
 
-    newPost.content = content;
-    provider.createDir(newPost.id);
-    provider.writeFile(newPost.id + "/content.json", Buffer.from(JSON.stringify(newPost), 'utf8'));
-
-    return json(newPost);
+    return json(postData);
   }
 };
 
-export const PUT: RequestHandler = async ( {url, request }) => {
-  return json({
-    status: "Ok"
-  })
-};
+
+
+

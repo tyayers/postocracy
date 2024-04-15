@@ -1,5 +1,6 @@
 import { DataProviderLocal } from "$lib/data-provider-local";
-import type { DataProvider } from "$lib/interfaces";
+import type { DataProvider, Post } from "$lib/interfaces";
+import { convertPostFormToObject } from "$lib/utils";
 import { error, json, type RequestHandler } from "@sveltejs/kit";
 
 let provider: DataProvider = new DataProviderLocal();
@@ -17,4 +18,25 @@ export const GET: RequestHandler = async ({ params, url }) => {
   }
 
   return json(JSON.parse(postBuffer.toString()));
+};
+
+export const PUT: RequestHandler = async ( {url, request }) => {
+  let postData: Post | undefined = undefined;
+  const data = await request.formData();
+
+  if (data) {
+    postData = await convertPostFormToObject(data);
+  }
+  else {
+    const requestJson = await request.json();
+    if (requestJson) postData = await requestJson;
+  }
+
+  if (!postData)
+    error(400, "Invalid post data sent.");
+  else {
+    provider.writeFile(postData.id + "/content.json", Buffer.from(JSON.stringify(postData), 'utf8'));
+
+    return json(postData);
+  }
 };

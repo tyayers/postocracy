@@ -6,11 +6,11 @@ let provider: DataProvider = new DataProviderLocal();
 
 export const GET: RequestHandler = async ({ params, url }) => {
 
-  if (!params.id || !params.file) {
+  if (!params.id || !params.image) {
     error(400, "Image info not given.");
   }
 
-  let imageBuffer = provider.getFile(params.id + "/" + params.file);
+  let imageBuffer = provider.getFile(params.id + "/" + params.image);
 
   if (!imageBuffer) {
     error(404, "Image not found.");
